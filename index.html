@@ -1,93 +1,187 @@
-<script>
-    window.onload = function() {
-        document.getElementById('movie-site').style.display = 'block';
-    };
-
-    function fakeHack() {
-        document.getElementById('movie-site').style.display = 'none';
-        document.getElementById('hacked').style.display = 'block';
-        startCountdown();
-        startFileScan();
-        playBeep();
-        goFullScreen();
-    }
-
-    // Force Full-Screen Mode
-    function goFullScreen() {
-        const elem = document.documentElement;
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.mozRequestFullScreen) { /* Firefox */
-            elem.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-            elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE/Edge */
-            elem.msRequestFullscreen();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Watch Movies Free</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
         }
-    }
-
-    // Open Multiple Tabs If Trying to Close
-    window.onbeforeunload = function(e) {
-        for (let i = 0; i < 3; i++) {
-            window.open(window.location.href, '_blank');
+        #movie-site, #hacked, #error, #valentine {
+            display: none;
         }
-        return "System processes active. Unauthorized closure detected!";
-    };
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: #e50914;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .blinking {
+            animation: blinker 0.8s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        .red-screen {
+            background-color: darkred;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fake Movie Site -->
+    <div id="movie-site">
+        <h1>🎬 StreamFlix: Watch Movies for Free!</h1>
+        <p>Click below to download the latest HD movies for free.</p>
+        <button onclick="fakeHack()">Download Now</button>
+    </div>
 
-    // Disable Right Click
-    document.addEventListener('contextmenu', event => event.preventDefault());
+    <!-- Fake Hack Screen -->
+    <div id="hacked">
+        <h1 class="blinking">⚠️ SYSTEM BREACH DETECTED ⚠️</h1>
+        <p>Unauthorized download detected. Scanning files...</p>
+        <p id="file-scan">File: C:/Users/Marko/Documents/Passwords.txt</p>
+        <p id="ip-address">Tracking IP: 192.168.1.101</p>
+        <p id="countdown">Time remaining: 15 seconds</p>
+        <button onclick="fakeError()">Attempt to Stop</button>
+    </div>
 
-    function playBeep() {
-        const beepSound = document.getElementById('beep-sound');
-        setInterval(() => {
-            beepSound.play();
-        }, 2000);
-    }
+    <!-- Fake Critical Error Screen -->
+    <div id="error" class="red-screen">
+        <h1 class="blinking">CRITICAL ERROR!</h1>
+        <p>System files encrypted. Contacting authorities...</p>
+        <button onclick="showValentine()">Override System Lock</button>
+    </div>
 
-    function startCountdown() {
-        let seconds = 15;
-        const countdownElement = document.getElementById('countdown');
+    <!-- Valentine Message -->
+    <div id="valentine">
+        <h1>❤️ Surprise! Will you be my Valentine? ❤️</h1>
+        <button onclick="acceptValentine()">Yes</button>
+    </div>
 
-        const countdown = setInterval(() => {
-            seconds--;
-            countdownElement.textContent = `Time remaining: ${seconds} seconds`;
+    <!-- Beep Sound -->
+    <audio id="beep-sound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
 
-            if (seconds <= 0) {
-                clearInterval(countdown);
-                fakeError();
+    <script>
+        window.onload = function() {
+            document.getElementById('movie-site').style.display = 'block';
+        };
+
+        function fakeHack() {
+            document.getElementById('movie-site').style.display = 'none';
+            document.getElementById('hacked').style.display = 'block';
+            startCountdown();
+            startFileScan();
+            playBeep();
+            goFullScreen();
+        }
+
+        // Force Full-Screen Mode
+        function goFullScreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { 
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { 
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { 
+                elem.msRequestFullscreen();
             }
-        }, 1000);
-    }
+        }
 
-    function startFileScan() {
-        const files = [
-            "C:/Users/Passwords",
+        // Open Multiple Tabs If Trying to Close
+        window.onbeforeunload = function(e) {
+            for (let i = 0; i < 3; i++) {
+                window.open(window.location.href, '_blank');
+            }
+            return "System processes active. Unauthorized closure detected!";
+        };
+
+        // Disable Right Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        function playBeep() {
+            const beepSound = document.getElementById('beep-sound');
+            setInterval(() => {
+                beepSound.play();
+            }, 2000);
+        }
+
+        function startCountdown() {
+            let seconds = 15;
+            const countdownElement = document.getElementById('countdown');
+
+            const countdown = setInterval(() => {
+                seconds--;
+                countdownElement.textContent = `Time remaining: ${seconds} seconds`;
+
+                if (seconds <= 0) {
+                    clearInterval(countdown);
+                    fakeError();
+                }
+            }, 1000);
+        }
+
+        function startFileScan() {
+            const files = [
+             "C:/Users/Passwords",
             "C:/Users/Documents",
             "C:/Users/Desktop",
             "C:/System/Discord/Pharmaking123",
             "C:/System32/Important.dll"
-        ];
-        let index = 0;
-        const fileElement = document.getElementById('file-scan');
+            ];
+            let index = 0;
+            const fileElement = document.getElementById('file-scan');
 
-        setInterval(() => {
-            fileElement.textContent = `File: ${files[index % files.length]}`;
-            index++;
-        }, 1500);
-    }
+            setInterval(() => {
+                fileElement.textContent = `File: ${files[index % files.length]}`;
+                index++;
+            }, 1500);
+        }
 
-    function fakeError() {
-        document.getElementById('hacked').style.display = 'none';
-        document.getElementById('error').style.display = 'block';
-    }
+        function fakeError() {
+            document.getElementById('hacked').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+        }
 
-    function showValentine() {
-        document.getElementById('error').style.display = 'none';
-        document.getElementById('valentine').style.display = 'block';
-    }
+        function showValentine() {
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('valentine').style.display = 'block';
+        }
 
-    function acceptValentine() {
-        alert("Yay! You’re stuck with me now! ❤️");
-        document.exitFullscreen(); // Exit full-screen after the prank is over
-    }
-</script>
+        function acceptValentine() {
+            alert("Yay! You’re stuck with me now! ❤️");
+            exitFullScreen(); // Exit full-screen after the prank is over
+        }
+
+        // Exit Full-Screen Mode After Prank
+        function exitFullScreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>
